@@ -1,0 +1,15 @@
+<!-- render the page with a new random grid of words -->
+<p>Here is your grid:</p>
+<h1><%= @grid %></h1>
+<br>
+
+<!-- the HTML form to write your guess just below the word-grid -->
+<form action="/score" method="get">
+  What's your best shot?
+<!--   <input type="hidden" name="start_time" value="<%= Time.now %>"> -->
+<!--   <input type="hidden" name="start_time" value="<%= @start_time %>"> -->
+  <input type="text" name="attempt">
+  <input type="submit">
+  <input type="hidden" name="start_time" value="<%= Time.now %>">
+  <input type="hidden" name="grid" value="<%= @grid %>">
+</form>
