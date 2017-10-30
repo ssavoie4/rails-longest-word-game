@@ -1,7 +1,11 @@
 <!-- display your score -->
 <h3>Now your result</h3>
 <p>Your word: <%= @attempt %></p>
-<p>Time taken to answer: <%= @results[:time] %></p>
+<p>Time taken to answer: <%= @results[:time]%> seconds</p>
 <p>Your score: <%= @results[:score] %></p>
 <p><%= @results[:message] %></p>
+<br>
+<p>You've played <%= session[:user_scores].size %> games</p>
+<p>You're average score is <%= (session[:user_scores].reduce(:+) / session[:user_scores].size.to_f).round %></p>
+<%= link_to "Play again!", game_path %>
 

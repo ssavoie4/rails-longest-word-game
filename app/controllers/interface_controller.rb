@@ -12,8 +12,13 @@ class InterfaceController < ApplicationController
     end_time = Time.now
     @attempt = params[:attempt]
     grid = params[:grid].split(' ')
-    time = end_time - Time.parse(params[:start_time])
+    time = (end_time - Time.parse(params[:start_time])).round
     @results = run_game(@attempt, grid, time)
+    if session.key?(:user_scores)
+      session[:user_scores] << @results[:score]
+    else
+      session[:user_scores] = [@results[:score]]
+    end
   end
 
   private
@@ -26,7 +31,7 @@ class InterfaceController < ApplicationController
 
   def run_game(attempt, grid, time)
     # TODO: runs the game and return detailed hash of result
-    score = Math.floor(attempt.size * (1 - (time / 60)))
+    score = (attempt.size * (1 - (time / 60))).round
     if dictionary_check(attempt) && grid_check(attempt, grid)
       { time: time, score: score, message: "Well done!" }
     elsif dictionary_check(attempt)
